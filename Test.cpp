@@ -140,21 +140,10 @@ TEST_CASE("-- post fix"){
 
 }
 
-TEST_CASE("<< operator"){
-        
-        
-
-}
-TEST_CASE(">> operator"){
-        
-        
-
-}
-
 
 ////////////////////
 
-// Float and function
+// Float
 
 ////////////////////
 
@@ -262,18 +251,5 @@ TEST_CASE("-- post fix"){
     CHECK_FALSE(one-- == two); 
 
 }
-
-TEST_CASE("<< operator"){
-        
-        
-
-}
-TEST_CASE(">> operator"){
-        
-        
-
-}
-
-
 
 }

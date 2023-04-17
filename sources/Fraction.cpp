@@ -14,8 +14,6 @@ namespace ariel{
     }
 
     
-    
-    
     // fraction to fraction
         Fraction Fraction::operator+(Fraction other){
             return Fraction(1,3);
