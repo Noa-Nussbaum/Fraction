@@ -9,14 +9,16 @@
 namespace ariel{
     Fraction::Fraction(const int& numerator,const int& denominator){
         if(denominator!=0){
-            int gcd = std::gcd(numerator,denominator);
-            this->numerator=numerator/gcd;
-            this->denominator=denominator/gcd;
+            // int gcd = std::gcd(numerator,denominator);
+            this->numerator=numerator;
+            this->denominator=denominator;
         }
     }
 
     Fraction::Fraction(const float& one){
-
+        Fraction f(one*1000,1000);
+        this->numerator =f.numerator;
+        this->denominator = f.denominator;
     }
 
     std::ostream& operator<<(std::ostream& output, const Fraction& fraction)
@@ -28,39 +30,54 @@ namespace ariel{
     Fraction Fraction::operator+(Fraction other){
         int numerator1 = this->numerator*other.denominator;
         int numerator2 = this->denominator*other.numerator;
-        return Fraction(numerator1+numerator2,this->denominator*other.denominator);
+        return Fraction(numerator1+numerator2,this->denominator*other.denominator).GCD();
     }
     Fraction Fraction::operator-(Fraction other){
-        return Fraction(1,3);
+        int numerator1 = this->numerator*other.denominator;
+        int numerator2 = this->denominator*other.numerator;
+        return Fraction(numerator1-numerator2,this->denominator*other.denominator).GCD();
     }
     Fraction Fraction::operator*(Fraction other){
-        return Fraction(1,3);
+        return Fraction(this->numerator*other.numerator,this->denominator*other.denominator).GCD();
     }
+
     Fraction Fraction::operator/(Fraction other){
-        return Fraction(1,3);
+        return Fraction(this->numerator*other.denominator,this->denominator*other.numerator).GCD();
     }
+
     bool Fraction::operator==(Fraction other){
-        return true;
+        return (this->numerator==other.numerator && this->denominator==other.denominator);
     }
     bool Fraction::operator>(Fraction other){
-        return true;
+        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
+        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
+        return (one.numerator>two.numerator);
     }
     bool Fraction::operator<(Fraction other){
-        return true;
+        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
+        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
+        return (one.numerator<two.numerator);
     }
     bool Fraction::operator>=(Fraction other){
-        return true;
+        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
+        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
+        return (one.numerator>=two.numerator);
     }
     bool Fraction::operator<=(Fraction other){
-        return true;
+        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
+        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
+        return (one.numerator<=two.numerator);
     }
     Fraction Fraction::operator++(){
-        return Fraction(1,3); 
+        // increase and return actual;
+        return Fraction(this->numerator+this->denominator,this->denominator); 
     }
     Fraction Fraction::operator--(){
         return Fraction(1,3);
     }
     Fraction Fraction::operator++(int){
+        // Fraction copy(this);
+        // here i have.a copy and return copy with
         return Fraction(1,3);
     }
     Fraction Fraction::operator--(int){
