@@ -13,15 +13,16 @@ class Fraction{
 
     public:
     
-        int nominator;
+        int numerator;
         int denominator;
 
-        Fraction(int nominator, int denominator);
+    // Constructor
+        Fraction(const int& numerator, const int& denominator);
 
-    // fraction and float
-        Fraction(float one);
+    // Fraction and float
+        Fraction(const float& one);
 
-    // fraction to fraction
+    // Fraction to fraction
         Fraction operator+(Fraction other);
         Fraction operator-(Fraction other);
         Fraction operator*(Fraction other);
@@ -38,7 +39,7 @@ class Fraction{
 
 
 
-    // float to fraction
+    // Float to fraction
         friend Fraction operator+(float other, Fraction fraction);
         friend Fraction operator-(float other, Fraction fraction);
         friend Fraction operator*(float other, Fraction fraction);
@@ -50,9 +51,12 @@ class Fraction{
         friend bool operator<=(float other, Fraction fraction);
 
 
-    //io
+    // io
         friend std::ostream& operator<<(std::ostream& os, const Fraction& obj);
         friend std::ostream& operator>>(std::ostream& os, const Fraction& obj);
+
+    // Others
+        Fraction GCD();
 
     };
     
