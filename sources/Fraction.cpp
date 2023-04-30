@@ -101,32 +101,28 @@ namespace ariel{
         return (fraction*other).GCD();
     }
     Fraction operator/(float other, Fraction fraction){
-        return Fraction(other)/fraction;
+        return (Fraction(other)/fraction).GCD();
     }
     bool operator==(float other, Fraction fraction){
-        return true;
+        return (fraction==Fraction(other));
     }
     bool operator>(float other, Fraction fraction){
-        return true;
+        return (fraction>Fraction(other));
     }
     bool operator<(float other, Fraction fraction){
-        return true;
+        return (fraction<Fraction(other));
     }
     bool operator>=(float other, Fraction fraction){
-        return true;
+        return (fraction>=Fraction(other));
     }
     bool operator<=(float other, Fraction fraction){
-        return true;
+        return (fraction<=Fraction(other));
     }
-
 
     // Other functions
     Fraction Fraction::GCD(){
         int gcd = std::gcd(numerator,denominator);
         return Fraction(numerator/gcd,denominator/gcd);
     }
-
-
-
 }
     

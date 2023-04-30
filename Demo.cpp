@@ -41,6 +41,9 @@ int main() {
     cout << c-- << endl;
     cout << c++ << endl;
     cout << --c << endl;
+    Fraction d(2.3);
+    cout << "Did it work? " <<d<<endl;
+    cout << (2.3==d) << endl;
 
     // cout << "c >=b ? : " << (c >= b) << endl;
     // if (a > 1.1) cout << " a is bigger than 1.1" << endl;
