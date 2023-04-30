@@ -15,6 +15,13 @@ namespace ariel{
         }
     }
 
+    int Fraction::getNumerator(){
+        return this->numerator;
+    }
+    int Fraction::getDenominator(){
+        return this->denominator;
+    }
+
     Fraction::Fraction(const float& one){
         Fraction f(one*1000,1000);
         this->numerator =f.numerator;

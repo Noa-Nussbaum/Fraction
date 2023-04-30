@@ -18,6 +18,8 @@ class Fraction{
 
     // Constructor
         Fraction(const int& numerator, const int& denominator);
+        int getNumerator();
+        int getDenominator();
 
     // Fraction and float
         Fraction(const float& one);
