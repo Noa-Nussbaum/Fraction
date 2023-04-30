@@ -70,34 +70,38 @@ namespace ariel{
     }
     Fraction Fraction::operator++(){
         // increase and return actual;
-        return Fraction(this->numerator+this->denominator,this->denominator); 
+        *this = *this+Fraction(1,1);
+        return *this;
     }
     Fraction Fraction::operator--(){
-        return Fraction(1,3);
+        // decrease and return actual;
+        *this = *this-Fraction(1,1);
+        return *this;
     }
     Fraction Fraction::operator++(int){
-        // Fraction copy(this);
-        // here i have.a copy and return copy with
-        return Fraction(1,3);
+        Fraction copy = *this;
+        ++*this;
+        return copy;
     }
     Fraction Fraction::operator--(int){
-        return Fraction(1,3);
+        Fraction copy = *this;
+        --*this;
+        return copy;
     }
-
 
 
     // float to fraction
-    Fraction operator+(float other, Fraction f){
-        return Fraction(1,3);
+    Fraction operator+(float other, Fraction fraction){
+        return (fraction+other).GCD();
     }
     Fraction operator-(float other, Fraction fraction){
-        return Fraction(1,3);
+        return ((fraction)*(-1)+other).GCD();
     }
     Fraction operator*(float other, Fraction fraction){
-        return Fraction(1,3);
+        return (fraction*other).GCD();
     }
     Fraction operator/(float other, Fraction fraction){
-        return Fraction(1,3);
+        return Fraction(other)/fraction;
     }
     bool operator==(float other, Fraction fraction){
         return true;
