@@ -18,8 +18,8 @@ class Fraction{
 
     // Constructor
         Fraction(const int& numerator, const int& denominator);
-        int getNumerator();
-        int getDenominator();
+        int getNumerator() const;
+        int getDenominator() const;
 
     // Fraction and float
         Fraction(const float& one);
@@ -29,11 +29,11 @@ class Fraction{
         Fraction operator-(Fraction other);
         Fraction operator*(Fraction other);
         Fraction operator/(Fraction other);
-        bool operator==(Fraction other);
-        bool operator>(Fraction other);
-        bool operator<(Fraction other);
-        bool operator>=(Fraction other);
-        bool operator<=(Fraction other);
+        bool operator==(const Fraction other)const;
+        bool operator>(const Fraction other)const;
+        bool operator<(const Fraction other)const;
+        bool operator>=(const Fraction other)const;
+        bool operator<=(const Fraction other)const;
         Fraction operator++();
         Fraction operator--();
         Fraction operator++(int);
@@ -45,11 +45,11 @@ class Fraction{
         friend Fraction operator-(float other, Fraction fraction);
         friend Fraction operator*(float other, Fraction fraction);
         friend Fraction operator/(float other, Fraction fraction);
-        friend bool operator==(float other, Fraction fraction);
-        friend bool operator>(float other, Fraction fraction);
-        friend bool operator<(float other, Fraction fraction);
-        friend bool operator>=(float other, Fraction fraction);
-        friend bool operator<=(float other, Fraction fraction);
+        friend bool operator==(const float other, Fraction fraction);
+        friend bool operator>(const float other, Fraction fraction);
+        friend bool operator<(const float other, Fraction fraction);
+        friend bool operator>=(const float other, Fraction fraction);
+        friend bool operator<=(const float other, Fraction fraction);
 
 
     // io
