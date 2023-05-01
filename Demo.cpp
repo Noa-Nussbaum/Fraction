@@ -45,6 +45,22 @@ int main() {
     cout << "Did it work? " <<d<<endl;
     cout << (2.3==d) << endl;
 
+    // Fraction a(1, 2), b(3, 4);
+    ostringstream os;
+
+    istringstream is("5 6"); // Could also be "5,6" for ex
+    // std::istringstream is("5/6");
+    istringstream bad_is("7");
+
+    // // Test operator>>
+    is >> b;
+
+    cout << b<<endl;
+
+    // b.getNumerator() == 5;
+    // b.getDenominator() == 6;
+    // CHECK_THROWS(bad_is >> b); // Throws cuz the input is one number
+
     // cout << "c >=b ? : " << (c >= b) << endl;
     // if (a > 1.1) cout << " a is bigger than 1.1" << endl;
     // else cout << " a is smaller than 1.1" << endl;

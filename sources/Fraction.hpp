@@ -40,7 +40,6 @@ class Fraction{
         Fraction operator--(int);
 
 
-
     // Float to fraction
         friend Fraction operator+(float other, Fraction fraction);
         friend Fraction operator-(float other, Fraction fraction);
@@ -55,7 +54,7 @@ class Fraction{
 
     // io
         friend std::ostream& operator<<(std::ostream& os, const Fraction& obj);
-        friend std::ostream& operator>>(std::ostream& os, const Fraction& obj);
+        friend std::istringstream& operator>>(std::istringstream& os, Fraction& obj);
 
     // Others
         Fraction GCD();

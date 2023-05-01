@@ -252,4 +252,20 @@ TEST_CASE("-- post fix"){
 
 }
 
+TEST_CASE(">> and <<"){
+    Fraction one(2, 3);
+    Fraction two(3, 4);
+
+    ostringstream output;
+
+    // Test operator<<
+    CHECK_NOTHROW(output << one); // Not throing error
+    CHECK(output.str() == "2/3"); // Prints well
+
+    istringstream input("32 46"); 
+    CHECK_NOTHROW(input >> two);
+    CHECK(two.getNumerator() == 32);
+    CHECK(two.getDenominator() == 46);
+}
+
 }
