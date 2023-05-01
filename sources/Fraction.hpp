@@ -18,8 +18,10 @@ class Fraction{
 
     // Constructor
         Fraction(const int& numerator, const int& denominator);
+        Fraction();
         int getNumerator() const;
         int getDenominator() const;
+        
 
     // Fraction and float
         Fraction(const float& one);
@@ -54,7 +56,7 @@ class Fraction{
 
     // io
         friend std::ostream& operator<<(std::ostream& os, const Fraction& obj);
-        friend std::istringstream& operator>>(std::istringstream& os, Fraction& obj);
+        friend std::istringstream& operator>>( std::istringstream& os, Fraction& obj) ;
 
     // Others
         Fraction GCD();

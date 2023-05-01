@@ -28,6 +28,9 @@ namespace ariel{
         }
     }
 
+    Fraction() : numerator(0), denominator(1) {}
+
+
     int Fraction::getNumerator() const{
         return this->numerator;
     }
@@ -48,7 +51,7 @@ namespace ariel{
 
 
 
-std::istringstream& operator>>(std::istringstream& input, Fraction& fraction) {
+std::istringstream& operator>>(const std::istringstream& input, Fraction& fraction)const {
 
     std::string buffer;
     std::getline(input, buffer);
