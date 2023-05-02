@@ -18,10 +18,16 @@ using namespace ariel;
 
 int main() {
     // Fraction a(5,3), b(14,21);
+    Fraction c{1, 3}; 
     Fraction a(1, 2);
     Fraction b(1, 4);
-    bool equal = a==b;  
-    cout << "a==b: " << equal << endl; 
+    cout << c+ 4.321 <<endl;
+    Fraction res(c+ 4.321);
+    cout << res <<endl;
+    Fraction fl(4.654);
+    cout << fl <<endl;
+    bool equal = c+ 4.321==4.654;  
+    cout << "c==4.654: " << equal << endl; 
     
     bool m = b < a;
     cout << "b<a: "<<m << endl;
@@ -42,15 +48,15 @@ int main() {
     cout << "a<=b " << rightE << endl; 
     cout << "2.3*b " << 2.3*b << endl; 
     cout << "a+2.421 " << a+2.421 << endl; 
-    Fraction c = a+b-1;
-    cout << c << endl;
-    cout << ++c << endl;
-    cout << c-- << endl;
-    cout << c++ << endl;
-    cout << --c << endl;
-    Fraction d(2.3);
-    cout << "Did it work? " <<d<<endl;
-    cout << (2.3==d) << endl;
+    // Fraction c = a+b-1;
+    // cout << c << endl;
+    // cout << ++c << endl;
+    // cout << c-- << endl;
+    // cout << c++ << endl;
+    // cout << --c << endl;
+    // Fraction d(2.3);
+    // cout << "Did it work? " <<d<<endl;
+    // cout << (2.3==d) << endl;
 
     // Fraction a(1, 2), b(3, 4);
     ostringstream os;

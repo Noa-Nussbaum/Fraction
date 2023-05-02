@@ -31,6 +31,8 @@ namespace ariel{
         else{
             throw std::invalid_argument("Error: Denominator equals 0");
         }
+        float hold = (float)numerator/denominator;
+        value = std::round(hold*1000.0)/1000.0;
     }
 
     Fraction::Fraction(): numerator(0), denominator(1) {}
@@ -58,18 +60,15 @@ namespace ariel{
 
 std::istream& operator>>( std::istream& input, Fraction& fraction) {
 
-    
-
-
     // Extract the numerator and denominator from the input string
     
     int numerator, denominator;
 
     input >> numerator >> denominator;
     if(input.fail())
-    throw std::runtime_error("dsff");
+    throw std::runtime_error("Error: runtime error");
     else if (denominator==0)
-        throw std::runtime_error("dsff");
+        throw std::runtime_error("Error: runtime error");
 
     // Set the fraction's numerator and denominator
     fraction = Fraction(numerator,denominator);
@@ -98,7 +97,7 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
         return Fraction(numerator1-numerator2,this->denominator*other.denominator);
     }
     Fraction Fraction::operator*(Fraction other){
-        if(this->numerator*other.numerator > max_int || this->denominator*other.denominator> max_int){
+        if(this->numerator*other.numerator >= max_int || this->denominator*other.denominator>= max_int){
             throw std::overflow_error("Too big");
         }
         return Fraction(this->numerator*other.numerator,this->denominator*other.denominator);
@@ -114,6 +113,7 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
 
 
     bool Fraction::operator==(const Fraction other)const{
+        // return(this->value==other.value);
         return (this->numerator==other.getNumerator() && this->denominator == other.getDenominator());
     }
 
@@ -161,7 +161,7 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
 
     // float to fraction
     Fraction operator+(float other, Fraction fraction){
-        return (fraction+other);
+        return (fraction);
     }
     Fraction operator-(float other, Fraction fraction){
         return ((fraction)*(-1)+other);
@@ -173,7 +173,10 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
         return (Fraction(other)/fraction);
     }
     bool operator==(const float other, Fraction fraction){
+        // cout << "Did it round "<<Fraction(other).value << endl;
+        // return (Fraction(other).value == fraction.value);
         return (fraction==Fraction(other));
+        
     }
     bool operator>(const float other, Fraction fraction){
         return (fraction<Fraction(other));

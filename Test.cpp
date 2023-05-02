@@ -11,6 +11,7 @@ namespace ariel{
 TEST_CASE("Initiation"){
 
     Fraction one(5,3);
+    cout << "one: "<<one <<endl;
     CHECK(one==5/3);
 
     Fraction two(8,2);
@@ -264,8 +265,8 @@ TEST_CASE(">> and <<"){
 
     istringstream input("32 46"); 
     CHECK_NOTHROW(input >> two);
-    CHECK(two.getNumerator() == 32);
-    CHECK(two.getDenominator() == 46);
+    CHECK(two.getNumerator() == 16);
+    CHECK(two.getDenominator() == 23);
 }
 
 }

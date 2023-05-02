@@ -13,8 +13,6 @@ class Fraction{
 
     public:
     
-        int numerator;
-        int denominator;
 
     // Constructor
         Fraction(const int& numerator, const int& denominator);
@@ -61,6 +59,11 @@ class Fraction{
 
     // Others
         Fraction GCD();
+
+        private:
+            int numerator;
+            int denominator;
+            float value;
 
     };
     
