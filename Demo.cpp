@@ -17,13 +17,20 @@ using namespace ariel;
 
 
 int main() {
-    Fraction a(5,3), b(14,21);
+    // Fraction a(5,3), b(14,21);
+    Fraction a(1, 2);
+    Fraction b(1, 4);
+    bool equal = a==b;  
+    cout << "a==b: " << equal << endl; 
+    
+    bool m = b < a;
+    cout << "b<a: "<<m << endl;
     cout << "a: " << a << "b: " << b << endl;
     cout << "a+b " << a+b << endl; 
     cout << "a-b " << a-b << endl; 
     cout << "a/b " << a/b << endl; 
     cout << "a*b " << a*b << endl;
-    bool equal = a==b;  
+    // bool equal = a==b;  
     bool left = a>b;
     bool right = a<b;
     cout << "a==b " << equal << endl; 

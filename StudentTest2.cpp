@@ -453,8 +453,8 @@ TEST_SUITE("Overloaded / operator tests") {
     }
 
     TEST_CASE("Dividing fractions by zero and dividing zero by a fraction") {
-        CHECK_THROWS_AS((Fraction{6, 10} / Fraction{0, 10000}), std::invalid_argument);
-        CHECK_THROWS_AS((Fraction{-4, 7} / 0.0), std::invalid_argument);
+        CHECK_THROWS_AS((Fraction{6, 10} / Fraction{0, 10000}), std::runtime_error);
+        CHECK_THROWS_AS((Fraction{-4, 7} / 0.0), std::runtime_error);
 
         CHECK_EQ(Fraction{0, 1} / 5.585, Fraction{0, 3});
         CHECK_EQ(0.0 / Fraction{1, 2}, Fraction{0, 3});
@@ -672,75 +672,77 @@ TEST_SUITE("Input and output operators tests") {
         CHECK_EQ(neg_frac, Fraction{-11, 13});
     }
 
-//     TEST_CASE("Chaining input and output operators") {
-//         std::stringstream ss_in("1 2 3 -4");
-//         Fraction frac1, frac2;
-//         ss_in >> frac1 >> frac2;
-//         CHECK_EQ(frac1, Fraction{1, 2});
-//         CHECK_EQ(frac2, Fraction{3, -4});
+    TEST_CASE("Chaining input and output operators") {
+        std::stringstream ss_in("1 2 3 -4");
+        Fraction frac1, frac2;
+        ss_in >> frac1 >> frac2;
+        cout << frac1 <<endl;
+        cout << frac2 <<endl;
+        CHECK_EQ(frac1, Fraction{1, 2});
+        CHECK_EQ(frac2, Fraction{3, -4});
 
-//         std::stringstream ss_out;
-//         ss_out << frac1 << " and " << frac2;
-//         CHECK(ss_out.str() == "1/2 and -3/4");
-//     }
+        std::stringstream ss_out;
+        ss_out << frac1 << " and " << frac2;
+        CHECK(ss_out.str() == "1/2 and -3/4");
+    }
 
-//     TEST_CASE(">> operator with zero denominator") {
-//         std::stringstream ss_zero_denominator("3 0");
+    TEST_CASE(">> operator with zero denominator") {
+        std::stringstream ss_zero_denominator("3 0");
 
-//         Fraction frac1;
-//         CHECK_THROWS_AS(ss_zero_denominator >> frac1, std::runtime_error);
+        Fraction frac1;
+        CHECK_THROWS_AS(ss_zero_denominator >> frac1, std::runtime_error);
 
-//         ss_zero_denominator.str("6 8 3 0");
-//         Fraction frac2, frac3;
-//         CHECK_THROWS_AS(ss_zero_denominator >> frac2 >> frac3, std::runtime_error);
-//     }
+        ss_zero_denominator.str("6 8 3 0");
+        Fraction frac2, frac3;
+        CHECK_THROWS_AS(ss_zero_denominator >> frac2 >> frac3, std::runtime_error);
+    }
 
-//     TEST_CASE(">> operator with zero numerator") {
-//         std::stringstream ss_valid_denominator("0 4");
+    TEST_CASE(">> operator with zero numerator") {
+        std::stringstream ss_valid_denominator("0 4");
 
-//         Fraction frac;
-//         CHECK_NOTHROW(ss_valid_denominator >> frac);
-//         CHECK_EQ(frac, Fraction{0, -8});
-//     }
+        Fraction frac;
+        CHECK_NOTHROW(ss_valid_denominator >> frac);
+        CHECK_EQ(frac, Fraction{0, -8});
+    }
 
-//     TEST_CASE(">> Operator with floating-point input") {
-//         std::stringstream ss_floating_point("3.556 4");
+    TEST_CASE(">> Operator with floating-point input") {
+        std::stringstream ss_floating_point("3.556 4");
 
-//         Fraction frac;
-//         CHECK_THROWS_AS(ss_floating_point >> frac, std::runtime_error);
-//     }
+        Fraction frac;
+        CHECK_THROWS_AS(ss_floating_point >> frac, std::runtime_error);
+    }
 }
 
-// TEST_CASE("Fraction with largest possible numerator and/or denominator and overflow handling") {
-//     int max_int = std::numeric_limits<int>::max();
-//     int min_int = std::numeric_limits<int>::min();
+TEST_CASE("Fraction with largest possible numerator and/or denominator and overflow handling") {
+    int max_int = std::numeric_limits<int>::max();
+    int min_int = std::numeric_limits<int>::min();
 
-//     // Test largest possible numerator
-//     CHECK_NOTHROW(Fraction f1(max_int, 1));
-//     Fraction f1(max_int, 1);
-//     CHECK_EQ(f1, Fraction(max_int, 1));
+    // Test largest possible numerator
+    CHECK_NOTHROW(Fraction f1(max_int, 1));
+    Fraction f1(max_int, 1);
+    CHECK_EQ(f1, Fraction(max_int, 1));
 
-//     // Test largest possible denominator
-//     CHECK_NOTHROW(Fraction f2(1, max_int));
-//     Fraction f2(1, max_int);
-//     CHECK_EQ(f2, Fraction(1, max_int));
+    // Test largest possible denominator
+    CHECK_NOTHROW(Fraction f2(1, max_int));
+    Fraction f2(1, max_int);
+    CHECK_EQ(f2, Fraction(1, max_int));
 
-//     // Test largest possible numerator and denominator
-//     CHECK_NOTHROW(Fraction f3(max_int, max_int));
-//     Fraction f3(max_int, max_int);
-//     CHECK_EQ(f3, Fraction(1, 1));
+    // Test largest possible numerator and denominator
+    CHECK_NOTHROW(Fraction f3(max_int, max_int));
+    Fraction f3(max_int, max_int);
+    CHECK_EQ(f3, Fraction(1, 1));
 
-//     // Test arithmetic with large numerator and/or denominator
-//     Fraction f4(max_int - 100, max_int);
+    // Test arithmetic with large numerator and/or denominator
+    Fraction f4(max_int - 100, max_int);
 
-//     CHECK_THROWS_AS(f1 * f4, std::overflow_error);
-//     CHECK_THROWS_AS(f1 / f4, std::overflow_error);
+    CHECK_THROWS_AS(f1 * f4, std::overflow_error);
+    CHECK_THROWS_AS(f1 / f4, std::overflow_error);
 
-//     CHECK_THROWS_AS(f2 * f4, std::overflow_error);
-//     CHECK_THROWS_AS(f2 / f4, std::overflow_error); //
+    CHECK_THROWS_AS(f2 * f4, std::overflow_error);
+    CHECK_THROWS_AS(f2 / f4, std::overflow_error); //
 
-//     CHECK_NOTHROW(f3 * f4);
-//     CHECK_NOTHROW(f4 / f3);
+    CHECK_NOTHROW(f3 * f4);
+    CHECK_NOTHROW(f4 / f3);
 
 //     Fraction f5(max_int - 1, 1);
 //     Fraction f6(min_int, 1);
@@ -754,4 +756,4 @@ TEST_SUITE("Input and output operators tests") {
 
 //     CHECK_NOTHROW(f5 + Fraction{1, 1});
 //     CHECK_NOTHROW(f7 - Fraction{1, 1});
-// }
+}

@@ -56,7 +56,8 @@ class Fraction{
 
     // io
         friend std::ostream& operator<<(std::ostream& os, const Fraction& obj);
-        friend std::istringstream& operator>>( std::istringstream& os, Fraction& obj) ;
+        friend std::istream& operator>>(std::istream& os, Fraction& obj) ;
+        // friend std::stringstream& operator>>(std::stringstream& input, Fraction& fraction);
 
     // Others
         Fraction GCD();

@@ -8,19 +8,24 @@
 #include <cstdlib>
 
 namespace ariel{
+
+    int max_int = std::numeric_limits<int>::max();
+    int min_int = std::numeric_limits<int>::min();
+
     Fraction::Fraction(const int& numerator,const int& denominator){
+        int gcd = std::gcd(abs(numerator),abs(denominator));
         if(denominator!=0){
             if((numerator<0 && denominator>0) || (denominator<0 && numerator>0)){
-                this->numerator=-abs(numerator);
-                this->denominator=abs(denominator);
+                this->numerator=-abs(numerator)/gcd;
+                this->denominator=abs(denominator)/gcd;
             }
             else if(numerator<0 && denominator<0){
-                this->numerator=abs(numerator);
-                this->denominator=abs(denominator);
+                this->numerator=abs(numerator)/gcd;
+                this->denominator=abs(denominator)/gcd;
             }
             else{
-                this->numerator=abs(numerator);
-                this->denominator=abs(denominator);
+                this->numerator=abs(numerator)/gcd;
+                this->denominator=abs(denominator)/gcd;
             }
         }
         else{
@@ -28,7 +33,7 @@ namespace ariel{
         }
     }
 
-    Fraction() : numerator(0), denominator(1) {}
+    Fraction::Fraction(): numerator(0), denominator(1) {}
 
 
     int Fraction::getNumerator() const{
@@ -51,29 +56,32 @@ namespace ariel{
 
 
 
-std::istringstream& operator>>(const std::istringstream& input, Fraction& fraction)const {
+std::istream& operator>>( std::istream& input, Fraction& fraction) {
 
-    std::string buffer;
-    std::getline(input, buffer);
+    
 
-    std::string input_str = input.str();
-    if (input_str.length() < 2) {
-        throw std::invalid_argument("Invalid input: expected two integers");
-    }
 
     // Extract the numerator and denominator from the input string
-    std::stringstream ss(buffer);
+    
     int numerator, denominator;
 
-    ss >> numerator >> denominator;
+    input >> numerator >> denominator;
+    if(input.fail())
+    throw std::runtime_error("dsff");
+    else if (denominator==0)
+        throw std::runtime_error("dsff");
 
     // Set the fraction's numerator and denominator
-    fraction.numerator = numerator;
-    fraction.denominator = denominator;
-
-    
+    fraction = Fraction(numerator,denominator);
     
     // Return the input stream
+    return input;
+}
+
+std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
+    // call the existing operator>> for istringstream
+    std::istringstream temp(input.str());
+    temp >> fraction;
     return input;
 }
 
@@ -82,50 +90,52 @@ std::istringstream& operator>>(const std::istringstream& input, Fraction& fracti
     Fraction Fraction::operator+(Fraction other){
         int numerator1 = this->numerator*other.denominator;
         int numerator2 = this->denominator*other.numerator;
-        return Fraction(numerator1+numerator2,this->denominator*other.denominator).GCD();
+        return Fraction(numerator1+numerator2,this->denominator*other.denominator);
     }
     Fraction Fraction::operator-(Fraction other){
         int numerator1 = this->numerator*other.denominator;
         int numerator2 = this->denominator*other.numerator;
-        return Fraction(numerator1-numerator2,this->denominator*other.denominator).GCD();
+        return Fraction(numerator1-numerator2,this->denominator*other.denominator);
     }
     Fraction Fraction::operator*(Fraction other){
-        return Fraction(this->numerator*other.numerator,this->denominator*other.denominator).GCD();
+        if(this->numerator*other.numerator > max_int || this->denominator*other.denominator> max_int){
+            throw std::overflow_error("Too big");
+        }
+        return Fraction(this->numerator*other.numerator,this->denominator*other.denominator);
     }
 
     Fraction Fraction::operator/(Fraction other){
-        return Fraction(this->numerator*other.denominator,this->denominator*other.numerator).GCD();
+        if(other.getNumerator()==0){
+            throw std::runtime_error("Division by zero");
+        }else{
+            return Fraction(this->numerator*other.denominator,this->denominator*other.numerator);
+        }
     }
 
 
     bool Fraction::operator==(const Fraction other)const{
-
-        Fraction one(this->numerator*other.getDenominator() , this->denominator*other.getDenominator());
-        Fraction two(other.getNumerator()*this->denominator,other.getDenominator()*this->denominator);
-
-        return (one.getNumerator() == two.getNumerator());
-        
+        return (this->numerator==other.getNumerator() && this->denominator == other.getDenominator());
     }
 
     bool Fraction::operator>(const Fraction other)const{
-        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
-        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
-        return (one.numerator>two.numerator);
+        int one = this->numerator*other.denominator;
+        int two = this->denominator*other.numerator;
+        return (one>two);
     }
     bool Fraction::operator<(const Fraction other)const{
-        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
-        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
-        return (one.numerator<two.numerator);
+        int one = this->numerator*other.denominator;
+        int two = this->denominator*other.numerator;
+        return (one<two);
     }
     bool Fraction::operator>=(const Fraction other)const{
-        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
-        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
-        return (one.numerator>=two.numerator);
+        int one = this->numerator*other.denominator;
+        int two = this->denominator*other.numerator;
+        return (one>=two);
     }
     bool Fraction::operator<=(const Fraction other)const{
-        Fraction one(this->numerator*other.denominator,this->denominator*other.denominator);
-        Fraction two(this->denominator*other.numerator,this->denominator*other.denominator);
-        return (one.numerator<=two.numerator);
+        int one = this->numerator*other.denominator;
+        int two = this->denominator*other.numerator;
+        return (one<=two);
     }
     Fraction Fraction::operator++(){
         // increase and return actual;
@@ -151,16 +161,16 @@ std::istringstream& operator>>(const std::istringstream& input, Fraction& fracti
 
     // float to fraction
     Fraction operator+(float other, Fraction fraction){
-        return (fraction+other).GCD();
+        return (fraction+other);
     }
     Fraction operator-(float other, Fraction fraction){
-        return ((fraction)*(-1)+other).GCD();
+        return ((fraction)*(-1)+other);
     }
     Fraction operator*(float other, Fraction fraction){
-        return (fraction*other).GCD();
+        return (fraction*other);
     }
     Fraction operator/(float other, Fraction fraction){
-        return (Fraction(other)/fraction).GCD();
+        return (Fraction(other)/fraction);
     }
     bool operator==(const float other, Fraction fraction){
         return (fraction==Fraction(other));
