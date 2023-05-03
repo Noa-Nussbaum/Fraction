@@ -9,8 +9,9 @@
 
 namespace ariel{
 
-    int max_int = std::numeric_limits<int>::max();
-    int min_int = std::numeric_limits<int>::min();
+    const double max_val = std::numeric_limits<int>::max();
+    const double min_val = std::numeric_limits<int>::min();
+
 
     Fraction::Fraction(const int& numerator,const int& denominator){
         int gcd = std::gcd(abs(numerator),abs(denominator));
@@ -89,24 +90,41 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
     Fraction Fraction::operator+(Fraction other){
         int numerator1 = this->numerator*other.denominator;
         int numerator2 = this->denominator*other.numerator;
-        return Fraction(numerator1+numerator2,this->denominator*other.denominator);
+        if(overFlow(Fraction(this->numerator,this->denominator),other)){
+            throw std::overflow_error("Error: OverFlow");
+        }
+        else{
+            return Fraction(numerator1+numerator2,this->denominator*other.denominator);
+        }
     }
     Fraction Fraction::operator-(Fraction other){
         int numerator1 = this->numerator*other.denominator;
         int numerator2 = this->denominator*other.numerator;
+        if(overFlow(Fraction(this->numerator,this->denominator),other)){
+            throw std::overflow_error("Error: OverFlow");
+        }
+        else{
         return Fraction(numerator1-numerator2,this->denominator*other.denominator);
+        }
     }
     Fraction Fraction::operator*(Fraction other){
-        if(this->numerator*other.numerator >= max_int || this->denominator*other.denominator>= max_int){
-            throw std::overflow_error("Too big");
+        if(overFlow(Fraction(this->numerator,this->denominator),other)){
+            throw std::overflow_error("Error: OverFlow");
         }
-        return Fraction(this->numerator*other.numerator,this->denominator*other.denominator);
+        else{
+            return Fraction(this->numerator*other.numerator,this->denominator*other.denominator);
+
+        }
     }
 
     Fraction Fraction::operator/(Fraction other){
         if(other.getNumerator()==0){
-            throw std::runtime_error("Division by zero");
-        }else{
+            throw std::runtime_error("Error: Denominator equals 0");
+        }
+        if(overFlow(Fraction(this->numerator,this->denominator),other)){
+            throw std::overflow_error("Error: OverFlow");
+        }
+        else{
             return Fraction(this->numerator*other.denominator,this->denominator*other.numerator);
         }
     }
@@ -114,6 +132,13 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
 
     bool Fraction::operator==(const Fraction other)const{
         // return(this->value==other.value);
+        // cout <<"other: "<< other.numerator<<"/"<<other.denominator<< endl;
+        // float one = (float)(other.numerator*1000.0/other.denominator)/1000.0;
+        // float two = (float)(this->numerator*1000.0/this->denominator)/1000.0;
+        // float dif = (float)abs(one-two);
+        // cout << "one " << one<< ", two " << two << endl;
+        // cout << "The dif is " << dif <<endl;
+        // return (dif<0.001);
         return (this->numerator==other.getNumerator() && this->denominator == other.getDenominator());
     }
 
@@ -161,22 +186,19 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
 
     // float to fraction
     Fraction operator+(float other, Fraction fraction){
-        return (fraction);
+            return (fraction+Fraction(other));
     }
     Fraction operator-(float other, Fraction fraction){
-        return ((fraction)*(-1)+other);
+        return ((fraction)*(-1)+Fraction(other));
     }
     Fraction operator*(float other, Fraction fraction){
-        return (fraction*other);
+        return (fraction*Fraction(other));
     }
     Fraction operator/(float other, Fraction fraction){
         return (Fraction(other)/fraction);
     }
     bool operator==(const float other, Fraction fraction){
-        // cout << "Did it round "<<Fraction(other).value << endl;
-        // return (Fraction(other).value == fraction.value);
         return (fraction==Fraction(other));
-        
     }
     bool operator>(const float other, Fraction fraction){
         return (fraction<Fraction(other));
@@ -196,5 +218,19 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
         int gcd = std::gcd(numerator,denominator);
         return Fraction(numerator/gcd,denominator/gcd);
     }
+
+    bool Fraction::overFlow(Fraction one, Fraction two) {
+    
+
+    double num_product = static_cast<double>(one.getNumerator()) * static_cast<double>(two.getNumerator());
+    double den_product = static_cast<double>(one.getDenominator()) * static_cast<double>(two.getDenominator());
+    
+    if (num_product > max_val || num_product < min_val || den_product > max_val || den_product < min_val) {
+        return true;
+    }
+    
+    return false;
+}
+
 }
     

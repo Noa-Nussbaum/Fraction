@@ -55,10 +55,11 @@ class Fraction{
     // io
         friend std::ostream& operator<<(std::ostream& os, const Fraction& obj);
         friend std::istream& operator>>(std::istream& os, Fraction& obj) ;
-        // friend std::stringstream& operator>>(std::stringstream& input, Fraction& fraction);
 
     // Others
         Fraction GCD();
+        bool overFlow(Fraction one, Fraction two);
+
 
         private:
             int numerator;
