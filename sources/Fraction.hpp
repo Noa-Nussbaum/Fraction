@@ -59,6 +59,7 @@ class Fraction{
     // Others
         Fraction GCD();
         bool overFlow(Fraction one, Fraction two);
+        float fractionToFloat(const Fraction fraction)const;
 
 
         private:

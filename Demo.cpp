@@ -20,22 +20,27 @@ using namespace ariel;
 
 
 int main() {
-    cout << Fraction(13963,3000)<<endl;
-    cout << Fraction{1, 3}<< " num as frac "<<Fraction(4.321)<< " addition " << Fraction{1, 3} + Fraction(4.321)<<endl;
+    // cout << Fraction(13963,3000)<<endl;
+    // cout << Fraction{1, 3}<< " num as frac "<<Fraction(4.321)<< " addition " << Fraction{1, 3} + Fraction(4.321)<<endl;
     Fraction b{1, 3};
     float a = (float)b.getNumerator()/b.getDenominator();
-    cout<< "a " << a <<endl;
-    cout<< Fraction(4.321)<<endl;
+    // cout<< "a " << a <<endl;
+    // cout<< Fraction(4.321)<<endl;
     // cout << a <<endl;
-    cout << "gcd "<<std::gcd(13963,3000)<< endl;
+    // cout << "gcd "<<std::gcd(13963,3000)<< endl;
 
-    cout <<Fraction{2, 3}<< endl;
-    cout<<Fraction(5.321)<<endl;
-    cout<< Fraction(5.321)-Fraction{2, 3}<<endl;
-    cout<< 5.321 - Fraction{2, 3} << endl;
+    // cout <<Fraction{2, 3}<< endl;
+    // cout<<Fraction(5.321)<<endl;
+    // cout<< Fraction(5.321)-Fraction{2, 3}<<endl;
+    // cout<< 5.321 - Fraction{2, 3} << endl;
 
     bool check = (2327/500)==(Fraction{1, 3} + 4.321);
-    cout << (float)(2327*1000.0/500)/1000.0;
+    cout << endl;
+    cout << "zev: " << Fraction{1, 3} + 4.321 << endl;
+    Fraction temp(1,3);
+    temp + 4.321;
+    cout << Fraction::fractionToFloat(temp)<<endl;
+    cout << (float)(2327.0*1000.0/500.0)/1000.0 << endl;
 
     cout << " check "<<check << endl;
 

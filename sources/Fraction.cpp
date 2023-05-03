@@ -129,7 +129,14 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
         }
     }
 
-
+    float Fraction::fractionToFloat(const Fraction fraction)const{
+        int waitup =  (float)(fraction.getNumerator()*1000.0/fraction.getDenominator());
+        cout << " wait " << waitup << endl;
+        float tempo = waitup/1000.0;
+        return tempo;
+        // cout << "Now it's this " << tempo<<endl;
+        // return (float)(fraction.getNumerator()*1000.0/fraction.getDenominator())/1000.0;
+    }
     bool Fraction::operator==(const Fraction other)const{
         // return(this->value==other.value);
         // cout <<"other: "<< other.numerator<<"/"<<other.denominator<< endl;
@@ -139,6 +146,12 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
         // cout << "one " << one<< ", two " << two << endl;
         // cout << "The dif is " << dif <<endl;
         // return (dif<0.001);
+        Fraction temp(this->numerator,this->denominator);
+        cout << "temp = " << temp << endl;
+        cout <<fractionToFloat(temp) << endl;
+        if(fractionToFloat(temp) == fractionToFloat(other)){
+            return true;
+        }
         return (this->numerator==other.getNumerator() && this->denominator == other.getDenominator());
     }
 
@@ -230,7 +243,9 @@ std::stringstream& operator>>(std::stringstream& input, Fraction& fraction) {
     }
     
     return false;
-}
+    }
+
+    
 
 }
     
