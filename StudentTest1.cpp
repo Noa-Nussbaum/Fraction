@@ -223,10 +223,9 @@ TEST_CASE("Output and Input Stream Operators") {
     CHECK(os.str() == "1/2"); // Prints well
 
     istringstream is("5 6"); // Could also be "5,6" for ex
-    // std::istringstream is("5/6");
     istringstream bad_is("7");
 
-    // // Test operator>>
+    // Test operator>>
     CHECK_NOTHROW(is >> b);
     CHECK(b.getNumerator() == 5);
     CHECK(b.getDenominator() == 6);

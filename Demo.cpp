@@ -39,7 +39,6 @@ int main() {
     cout << "zev: " << Fraction{1, 3} + 4.321 << endl;
     Fraction temp(1,3);
     temp + 4.321;
-    cout << Fraction::fractionToFloat(temp)<<endl;
     cout << (float)(2327.0*1000.0/500.0)/1000.0 << endl;
 
     cout << " check "<<check << endl;
