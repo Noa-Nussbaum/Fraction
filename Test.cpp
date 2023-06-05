@@ -69,15 +69,19 @@ TEST_CASE("Division"){
     Fraction four(7,9);
     Fraction five(15,28);
     Fraction six(1,1);
+    Fraction zero(0,1);
 
 
     CHECK(one/two==three);
     CHECK(three/four==five);
     CHECK(four/four==six);
     CHECK(five/five==six);
+    CHECK_THROWS(six/zero);
+    CHECK_THROWS(one/zero);
 
 
 }
+
 TEST_CASE("Equals == "){
         
     Fraction one(64,17);
@@ -186,8 +190,11 @@ TEST_CASE("Division"){
     float one=1.666;
     Fraction two(8,2);
     Fraction three(5,12);
+    Fraction zero(0,1);
 
     CHECK(one/two==three);
+    CHECK_THROWS(one/zero);
+    CHECK_THROWS(two/zero);
 
 }
 TEST_CASE("Equals == "){
